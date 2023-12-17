@@ -10,15 +10,26 @@
         5. Where to look for the answer?
 
     Objective function:
-        f(i) is the total number of ways to get to the ith step 
+        f(i) is the total number of ways to get to the kth step 
 
     Idenify base cases:
         f(0) = 1
-        f(1) = 1
-        f(2) = 2
+
+        notes:
+            everything else is calculated iteratively 
 
     Recurrence relation: 
         f(n) = f(n-1) + f(n-2) + f(n-3) + ... + f(n-k)
+
+        notes:
+            this screams for loop!... for k in range(1,k+1) BUT if tabulated array is of size k
+            change the for loop to: for k in range(1,k) because when "overwriting memoory" use 
+            addition to that index therefore no need to include + f(n-k)
+                e.g. 
+                k = 2 
+                dp[2,3] and the next fib number is 5 therefore add 3 to 2 and the operation is 
+                complete. This operation is synonmous to f(5) = f(5-1) + f(5-2) where f(5-1) is 3
+                and f(5-2) is the 2 at index 0. 
 
     Order of execution:
         bottom-up
@@ -36,11 +47,9 @@ Space complexity: o(1)
 
 def climbing_stairs(n:int, k:int):
     
-    ways = [0] * k
-
+    ways = [0] * k # array of size k
     ways[0] = 1
     
-
     for i in range(1,n+1):
         #f(n) = f(n-1) + f(n-2) + f(n-3) + ... + f(n-k) is a for loop as seen below:
         for j in range(1,k):

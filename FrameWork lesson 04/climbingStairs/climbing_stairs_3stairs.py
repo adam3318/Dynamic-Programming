@@ -30,8 +30,8 @@
 """
 Time complexity: o(n)
     loop through n data and doing constant work each time
-Space complexity: o(n)
-    allocate an array of size n
+Space complexity: o(1)
+    allocated constant number of variables
 """
     
 def climbing_stairs(n:int):
