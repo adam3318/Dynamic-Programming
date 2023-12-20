@@ -41,8 +41,8 @@
 """
 Time complexity: o(n)
     loop through n data and doing constant work each time
-Space complexity: o(1)
-    allocated constant number of variables
+Space complexity: o(n)
+    allocated n number of variables
 """
 
 def climbing_stairs(n:int, k:int, price:[]) -> int:

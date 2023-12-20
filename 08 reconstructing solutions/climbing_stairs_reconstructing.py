@@ -31,3 +31,4 @@ print(climbing_stairs(8,2, prices)) #5
 
 prices = [0,3,2,4]
 print(climbing_stairs(3,2, prices)) #6
+
