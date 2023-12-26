@@ -55,7 +55,7 @@ def climbing_stairs(n:int, k:int, price:[]) -> [int]:
                   minimum = ways[(i-j)] + price[i]
                   ways[i] = ways[(i-j)] + price[i]
                   
-        minimum = 999
+        minimum = 999 #max int
             
     curr = n
     reconstructed_path = []
