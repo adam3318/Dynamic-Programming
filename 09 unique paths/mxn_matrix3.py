@@ -31,7 +31,7 @@ def print_grid(symbol, x,y):
         print((x*4+1)*"-")
 #print_grid('0', 4,3)
         
-def create_grid_with_obstacles(m: int, n: int) -> np.ndarray:
+def create_grid(m: int, n: int) -> np.ndarray:
     twoD_list = np.zeros( (m,n) , dtype=int)
     for i in range(m):
         for j in range(n):
@@ -46,6 +46,8 @@ def unique_path_max_profit(array: np.ndarray) -> int:
     
     m = array.shape[0]
     n = array.shape[1]
+    from_array = np.empty([m, n], dtype=np.ndarray)
+    
 
     for i in range(m):
         for j in range(n):
@@ -53,18 +55,40 @@ def unique_path_max_profit(array: np.ndarray) -> int:
                 twoD_list[i][j] = 0
                 continue
             if i > 0 and j > 0:
-                twoD_list[i][j] += max(twoD_list[i-1][j], twoD_list[i][j-1]) 
+                if twoD_list[i-1][j] > twoD_list[i][j-1]:
+                    twoD_list[i][j] += twoD_list[i-1][j]
+                    from_array[i][j] = [i-1,j]
+                else:
+                    twoD_list[i][j] += twoD_list[i][j-1]
+                    from_array[i][j] = [i,j-1]
+
+                #twoD_list[i][j] += max(twoD_list[i-1][j], twoD_list[i][j-1]) # += is the same as adding price at current index
+                #from_array[i][j] = max()
             elif i > 0:
                 twoD_list[i][j] += twoD_list[i-1][j]
+                from_array[i][j] = [i-1,j]
             elif j > 0:
                 twoD_list[i][j] += twoD_list[i][j-1]
-
+                from_array[i][j] = [i,j-1]
     
+    #curr = [m,n]
+    curr = [m-1,n-1]
+    reconstructed_path = []
+    while(curr[0]> 0 or curr[1] > 0):
+        reconstructed_path.append(curr)
+        curr = from_array[curr[0]][curr[1]]
+          
+    reconstructed_path.append([0,0])
+    reconstructed_path.reverse()
+    return reconstructed_path, twoD_list[i][j]
     
-    return twoD_list[i][j]
+    #return twoD_list[i][j]
 
-arry = create_grid_with_obstacles(3,4)
+arry = create_grid(3,4)
 print(arry)
-y = unique_path_max_profit(arry)
-print(f"The maximum profit is {y}")
+
+profit = unique_path_max_profit(arry)[1]
+path = unique_path_max_profit(arry)[0]
+print(f"The maximum profit is {profit}")
+print(f"The unique path of maximum profit is: {path}")
 
