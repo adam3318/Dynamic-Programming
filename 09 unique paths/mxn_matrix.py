@@ -32,8 +32,8 @@ def print_grid(symbol, x,y):
         
 
 def unique_path(m: int, n: int) -> int:
-    #twoD_list = np.zeros((m,n),dtype=int)
-    twoD_list = [ [0] * n for i in range(m)]
+    twoD_list = np.zeros((m,n),dtype=int)
+    #twoD_list = [ [0] * n for i in range(m)]
     twoD_list[0][0] = 1
     
     for i in range(m):
